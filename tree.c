@@ -7,43 +7,54 @@
 
 void my_putchar(char c);
 
-void print_trunk(int size)
-{
-    for (int y = 1; y <= size; y++) {
-        print_x_characters(/*XXXXXXXXXX*/, ' ');
-        print_x_characters(size, '|');
-    }
-}
-
-static print_x_characters(int x, char c)
+static void print_x_characters(int x, char c)
 {
     for (int i = 0; i < x; i++) {
         my_putchar(c);
     }
 }
 
-static int print_floor(int size, int floor)
+static void print_trunk(int size, int zoom)
+{
+    for (int y = 1; y <= size; y++) {
+        print_x_characters(size * zoom - size / 2, ' ');
+        print_x_characters(size, '|');
+        my_putchar('\n');
+    }
+}
+
+static int print_floor(int size, int floor, int top_stars, int num_spaces)
 {
     int step;
-    int num_spaces = size * 4;
 
-    for (step = 0; step <= (floor + 4); step++) {
-        //my_put_nbr(num_spaces);
+    for (step = top_stars; step <= (floor + 4 + top_stars); step++) {
         print_x_characters(num_spaces, ' ');
         print_x_characters(1 + step * 2, '*');
         num_spaces--;
         my_putchar('\n');
     }
-    return (1 + step * 2);
+    return (step - 2);
 }
 
 void tree(int size)
 {
-    print_x_characters(3, '\n');
-    for (int floor = 0; floor < size; floor++) {
-        print_floor(size, floor);
+    print_x_characters(1, '\n');
+    int zoom = 4;
+    if (size > 2) {
+        zoom = 5;
+        if (size > 5) {
+            zoom = size;
+        }
     }
-    print_trunk();
+    int top_stars = 0;
+    int num_spaces = size * zoom;
+
+    for (int floor = 0; floor < size; floor++) {
+        top_stars = print_floor(size, floor, top_stars, num_spaces);
+        num_spaces  = (size * zoom) - (top_stars);
+    }
+    print_trunk(size, zoom);
+    print_x_characters(2, '\n');
 }
 
 
