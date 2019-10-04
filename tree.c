@@ -50,20 +50,6 @@ void tree(int size)
     for (int floor = 0; floor < size; floor++) {
         top_stars = print_floor(size, floor, top_stars, num_spaces);
         num_spaces  = (size * 4 - 1) - top_stars;
-        /*if (size > 1) {
-          num_spaces--;
-          if (size >= 5) {
-          num_spaces += (size - 4);
-          if (size >= 6) {
-          num_spaces += (size - 6);
-          if (size >= 8) {
-          num_spaces += (size - 8);
-          if (size >= 10)
-          num_spaces += (size - 10);
-          }
-          }
-          }
-          }*/
         for (int i = 4; i < size; i += 2)
             num_spaces += (size - i);
         num_spaces--;
@@ -73,14 +59,5 @@ void tree(int size)
         num_spaces += decrease;
         is_decrease = !is_decrease;
     }
-
     print_trunk(size, top_stars + 1);
 }
-
-//***************************************
-
-//Etage du dessus = 2/3 * Etage
-//Etage du dessous = 2/3 / Etage
-//Espaces en haut avant première étoile = 5*4 - 1
-//Dernière ligne avant tronc = size*4
-//v_ligne = (size - 2) * 8 + 13
