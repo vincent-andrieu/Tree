@@ -14,10 +14,10 @@ static void print_x_characters(int x, char c)
     }
 }
 
-static void print_trunk(int size, int zoom)
+static void print_trunk(int size, int x)
 {
     for (int y = 1; y <= size; y++) {
-        print_x_characters((size - 2) * 4 + 12 - size / 2, ' ');
+        print_x_characters(x, ' ');
         print_x_characters(size, '|');
         my_putchar('\n');
     }
@@ -39,20 +39,45 @@ static int print_floor(int size, int floor, int top_stars, int num_spaces)
 void tree(int size)
 {
     int top_stars = 0;
-    int num_spaces = (size - 2) * 4 + 12;
-    int decrease_stars = 0;
+    int num_spaces = (size) * 4 - 2;
+    int is_decrease = 1;
+    int decrease = -1;
 
+    if (size == 1)
+        num_spaces++;
+    for (int i = 4; i < size; i += 2)
+        num_spaces += (size - i);
     for (int floor = 0; floor < size; floor++) {
         top_stars = print_floor(size, floor, top_stars, num_spaces);
-        num_spaces  = ((size - 2) * 4 + 12) - (top_stars);
-        if (decrease_stars) {
-            top_stars--;
-            num_spaces++;
-        }
-        decrease_stars = !decrease_stars;
+        num_spaces  = (size * 4 - 1) - top_stars;
+        /*if (size > 1) {
+          num_spaces--;
+          if (size >= 5) {
+          num_spaces += (size - 4);
+          if (size >= 6) {
+          num_spaces += (size - 6);
+          if (size >= 8) {
+          num_spaces += (size - 8);
+          if (size >= 10)
+          num_spaces += (size - 10);
+          }
+          }
+          }
+          }*/
+        for (int i = 4; i < size; i += 2)
+            num_spaces += (size - i);
+        num_spaces--;
+        if (is_decrease)
+            decrease++;
+        top_stars -= decrease;
+        num_spaces += decrease;
+        is_decrease = !is_decrease;
     }
-    print_trunk(size, (size - 2) * 4 + 12);
+
+    print_trunk(size, top_stars + 1);
 }
+
+//***************************************
 
 //Etage du dessus = 2/3 * Etage
 //Etage du dessous = 2/3 / Etage
