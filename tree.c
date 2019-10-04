@@ -40,10 +40,16 @@ void tree(int size)
 {
     int top_stars = 0;
     int num_spaces = (size - 2) * 4 + 12;
+    int decrease_stars = 0;
 
     for (int floor = 0; floor < size; floor++) {
         top_stars = print_floor(size, floor, top_stars, num_spaces);
         num_spaces  = ((size - 2) * 4 + 12) - (top_stars);
+        if (decrease_stars) {
+            top_stars--;
+            num_spaces++;
+        }
+        decrease_stars = !decrease_stars;
     }
     print_trunk(size, (size - 2) * 4 + 12);
 }
