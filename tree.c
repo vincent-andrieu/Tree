@@ -15,14 +15,16 @@ static void print_x_characters(int x, char c)
 
 static void print_log(int size, int x)
 {
+    int width_size = size;
+
     for (int i = 2; i <= x; i += 2)
-        if (i == x) {
-            size++;
+        if (i == size) {
+            width_size++;
             x--;
         }
     for (int y = 1; y <= size; y++) {
         print_x_characters(x, ' ');
-        print_x_characters(size, '|');
+        print_x_characters(width_size, '|');
         my_putchar('\n');
     }
 }
