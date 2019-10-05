@@ -7,10 +7,15 @@
 
 void my_putchar(char c);
 
-static void print_x_characters(int x, char c)
+static void print_x_characters(int x, char c, char *color)
 {
+    for (int i = 0; color[i] != '\0'; i++)
+        my_putchar(color[i]);
     for (int i = 0; i < x; i++)
         my_putchar(c);
+    color = "\e[0m";
+    for (int i = 0; color[i] != '\0'; i++)
+        my_putchar(color[i]);
 }
 
 static void print_log(int size, int x)
@@ -21,8 +26,8 @@ static void print_log(int size, int x)
             x--;
         }
     for (int y = 1; y <= size; y++) {
-        print_x_characters(x, ' ');
-        print_x_characters(size, '|');
+        print_x_characters(x, ' ', "\e[0m");
+        print_x_characters(size, '|', "\e[33m");
         my_putchar('\n');
     }
 }
@@ -32,8 +37,8 @@ static int print_floor(int size, int floor, int top_stars, int num_spaces)
     int step;
 
     for (step = top_stars; step < (floor + 4 + top_stars); step++) {
-        print_x_characters(num_spaces, ' ');
-        print_x_characters(1 + step * 2, '*');
+        print_x_characters(num_spaces, ' ', "\e[0m");
+        print_x_characters(1 + step * 2, '*', "\e[0;32m");
         num_spaces--;
         my_putchar('\n');
     }
