@@ -36,22 +36,26 @@ static int print_floor(int size, int floor, int top_stars, int num_spaces)
     return (step - 2);
 }
 
+static int get_zoom(int size, int spaces)
+{
+    for (int i = 4; i < size; i += 2)
+        spaces += (size - i);
+    return spaces;
+}
+
 void tree(int size)
 {
     int top_stars = 0;
-    int num_spaces = (size) * 4 - 2;
+    int num_spaces = get_zoom(size, (size) * 4 - 2);;
     int is_decrease = 1;
     int decrease = -1;
 
     if (size == 1)
         num_spaces++;
-    for (int i = 4; i < size; i += 2)
-        num_spaces += (size - i);
     for (int floor = 0; floor < size; floor++) {
         top_stars = print_floor(size, floor, top_stars, num_spaces);
         num_spaces  = (size * 4 - 1) - top_stars;
-        for (int i = 4; i < size; i += 2)
-            num_spaces += (size - i);
+        num_spaces = get_zoom(size, num_spaces);
         num_spaces--;
         if (is_decrease)
             decrease++;
