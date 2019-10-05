@@ -20,14 +20,16 @@ static void print_x_characters(int x, char c, char *color)
 
 static void print_log(int size, int x)
 {
-    for (int i = 2; i <= x; i += 2)
-        if (i == x) {
-            size++;
+    int width_size = size;
+
+    for (int i = 2; i <= size; i += 2)
+        if (i == size) {
+            width_size++;
             x--;
         }
     for (int y = 1; y <= size; y++) {
         print_x_characters(x, ' ', "\e[0m");
-        print_x_characters(size, '|', "\e[33m");
+        print_x_characters(width_size, '|', "\e[33m");
         my_putchar('\n');
     }
 }

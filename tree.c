@@ -17,7 +17,7 @@ static void print_log(int size, int x)
 {
     int width_size = size;
 
-    for (int i = 2; i <= x; i += 2)
+    for (int i = 2; i <= size; i += 2)
         if (i == size) {
             width_size++;
             x--;
