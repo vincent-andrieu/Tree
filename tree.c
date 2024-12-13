@@ -3,14 +3,16 @@
 ** fir tree
 ** File description:
 ** print tree with the size of the param
+** To compile this project : gcc -o main tree.c
 */
 
-void my_putchar(char c);
+#include <stdlib.h>
+#include <stdio.h>
 
 static void print_x_characters(int x, char c)
 {
     for (int i = 0; i < x; i++)
-        my_putchar(c);
+        putchar(c);
 }
 
 static void print_log(int size, int x)
@@ -25,7 +27,7 @@ static void print_log(int size, int x)
     for (int y = 1; y <= size; y++) {
         print_x_characters(x, ' ');
         print_x_characters(width_size, '|');
-        my_putchar('\n');
+        putchar('\n');
     }
 }
 
@@ -37,7 +39,7 @@ static int print_floor(int size, int floor, int top_stars, int num_spaces)
         print_x_characters(num_spaces, ' ');
         print_x_characters(1 + step * 2, '*');
         num_spaces--;
-        my_putchar('\n');
+        putchar('\n');
     }
     return step - 2;
 }
@@ -68,4 +70,15 @@ void tree(int size)
         is_decrease = !is_decrease;
     }
     print_log(size, top_stars + 1);
+}
+
+int main(const int argc, const char **argv)
+{
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <size>\n", argv[0]);
+        return 84;
+    }
+
+    tree(atoi(argv[1]));
+    return 0;
 }
